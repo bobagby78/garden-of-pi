@@ -1,0 +1,1 @@
+#This file will be in charge of taking periodic photos of plant growth.
