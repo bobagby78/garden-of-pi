@@ -24,6 +24,7 @@ void setup(){
     
 }
 
+
 void loop(){
     thermSensorValueRaw=analogRead(thermSensorPin);
     Serial.println("Thermistor reading : ");
