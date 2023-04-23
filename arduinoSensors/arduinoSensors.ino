@@ -1,3 +1,5 @@
+#include <ArduinoJson.h>
+
 int thermSensorPin = 0; //thermistor
 int thermSensorValue;
 int hygroPin1 = 1;
@@ -27,31 +29,25 @@ void setup(){
 
 void loop(){
     thermSensorValueRaw=analogRead(thermSensorPin);
-    Serial.println("Thermistor reading : ");
-    Serial.println(thermSensorValueRaw);
-
     hygro1ValueRaw = analogRead(hygroPin1);
-    Serial.println("Hygrometer 1 reading : ");
-    Serial.println(hygro1ValueRaw);
-    
     hygro1ValueRaw = analogRead(hygroPin2);
-    Serial.println("Hygrometer 2 reading : ");
-    Serial.println(hygro2ValueRaw);
-
     hygro1ValueRaw = analogRead(hygroPin3);
-    Serial.println("Hygrometer 3 reading : ");
-    Serial.println(hygro3ValueRaw);
-
     hygro1ValueRaw = analogRead(hygroPin4);
-    Serial.println("Hygrometer 4 reading : ");
-    Serial.println(hygro4ValueRaw);
-
     hygro1ValueRaw = analogRead(hygroPin5);
-    Serial.println("Hygrometer 5 reading : ");
-    Serial.println(hygro5ValueRaw);
+    
+    StaticJsonDocument<500> jDoc;
+//    JsonObject& doc = jDoc.createObject();
+    
+    jDoc["therm"] = thermSensorValueRaw;    
+    jDoc["hygro1"] = hygro1ValueRaw;
+    jDoc["hygro2"] = hygro2ValueRaw;
+    jDoc["hygro3"] = hygro3ValueRaw;
+    jDoc["hygro4"] = hygro4ValueRaw;
+    jDoc["hygro5"] = hygro5ValueRaw;
+    jDoc["STATUS"] = 1;
 
-    Serial.println("END OF READING");
-
+    serializeJson(jDoc, Serial);
+    Serial.println();
     delay(5000);
     
 }
